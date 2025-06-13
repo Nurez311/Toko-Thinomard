@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Ringkasan Utang{% endblock %}
+
+{% block content %}
+    <div class="summary-container">
+        <h3>Ringkasan Total Utang per Pelanggan</h3>
+        {% if total_utang %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama Pelanggan</th>
+                        <th>Total Utang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nama, total in total_utang.items() %}
+                    <tr>
+                        <td>{{ nama }}</td>
+                        <td>Rp {{ total | int }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Tidak ada utang aktif.</p>
+        {% endif %}
+    </div>
+{% endblock %}
