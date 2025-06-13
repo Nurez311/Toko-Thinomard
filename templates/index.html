@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Catat Utang{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <h3>📝 Catat Utang Baru</h3>
+        <form action="/" method="POST">
+            <label for="tanggal">Tanggal Utang:</label><br>
+            <input type="date" id="tanggal" name="tanggal" required>
+            <label for="nama">Nama Pelanggan:</label><br>
+            <input type="text" id="nama" name="nama" required>
+            <label for="barang">Nama Barang:</label><br>
+            <input type="text" id="barang" name="barang" required>
+            <label for="harga">Harga (Rp):</label><br>
+            <input type="number" id="harga" name="harga" required min="0">
+            <button type="submit">Simpan Utang</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <h2>Rincian Semua Utang</h2>
+    
+    {% if daftar_utang %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama</th>
+                    <th>Barang</th>
+                    <th>Harga</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for utang in daftar_utang %}
+                    <tr>
+                        <td>{{ utang.tanggal }}</td>
+                        <td>{{ utang.nama }}</td>
+                        <td>{{ utang.barang }}</td>
+                        <td>Rp {{ utang.harga | int }}</td>
+                        <td>
+                            <a href="/lunas/{{ utang.id }}" class="lunas-btn" onclick="return confirm('Yakin utang ini akan dihapus?');">Hapus</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Belum ada utang yang tercatat.</p>
+    {% endif %}
+{% endblock %}
